@@ -1,25 +1,25 @@
 {
-    "name": "spatie/laravel-url-signer",
-    "description": "Laravel implementation of spatie/signed-url",
+    "name": "lab66/laravel-url-signer",
+    "description": "Custom Signed Urls in Laravel",
     "keywords": [
-        "spatie",
+        "lab66",
         "laravel-url-signer"
     ],
-    "homepage": "https://github.com/spatie/laravel-url-signer",
+    "homepage": "https://github.com/lab66/laravel-url-signer",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sebastian De Deyne",
-            "email": "sebastian@spatie.be",
-            "homepage": "https://spatie.be",
+            "name": "Jak Wilkins",
+            "email": "jak.wilkins@lab66.com",
+            "homepage": "https://lab66.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php" : "^7.0",
-        "spatie/url-signer": "^1.0.1",
-        "illuminate/support": "~5.4.0|~5.5.0",
-        "illuminate/http": "~5.4.0|~5.5.0"
+        "illuminate/support": "^5.3.0",
+        "illuminate/http": "^5.3.0",
+        "league/url": "^3.3"
     },
     "require-dev": {
         "orchestra/testbench": "~3.4.4|~3.5.0",
@@ -27,21 +27,21 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\UrlSigner\\Laravel\\": "src"
+            "Lab66\\UrlSigner\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\UrlSigner\\Laravel\\Test\\": "tests"
+            "Lab66\\UrlSigner\\Test\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\UrlSigner\\Laravel\\UrlSignerServiceProvider"
+                "Lab66\\UrlSigner\\UrlSignerServiceProvider"
             ],
             "aliases": {
-                "UrlSigner": "Spatie\\UrlSigner\\Laravel\\UrlSignerFacade"
+                "UrlSigner": "Lab66\\UrlSigner\\UrlSignerFacade"
             }
         }
     }

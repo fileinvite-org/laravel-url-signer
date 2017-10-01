@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\UrlSigner\Laravel;
+namespace Lab66\UrlSigner;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
-use Spatie\UrlSigner\UrlSigner as UrlSignerContract;
-use Spatie\UrlSigner\Laravel\Middleware\ValidateSignature;
+use Lab66\UrlSigner\Middleware\ValidateSignature;
+use Lab66\UrlSigner\Contracts\UrlSigner as UrlSignerContract;
 
 class UrlSignerServiceProvider extends ServiceProvider
 {
@@ -16,6 +16,13 @@ class UrlSignerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setupConfig($this->app);
+
+        if ($this->app->runningInConsole())
+        {
+            $this->commands([
+                Commands\UrlSignerGenerate::class
+            ]);
+        }
     }
 
     /**
@@ -26,7 +33,7 @@ class UrlSignerServiceProvider extends ServiceProvider
     protected function setupConfig(Application $app)
     {
         $source = realpath(__DIR__.'/../config/url-signer.php');
-        $this->publishes([$source => config_path('url-signer.php')]);
+        $this->publishes([$source => config_path('url-signer.php')], 'url-signer');
         $this->mergeConfigFrom($source, 'url-signer');
     }
 
@@ -41,7 +48,9 @@ class UrlSignerServiceProvider extends ServiceProvider
 
         $this->app->singleton(UrlSignerContract::class, function () use ($config) {
             return new UrlSigner(
-                $config['signatureKey'],
+                $config['private_key'],
+                $config['public_key'],
+                $config['default_expiration'],
                 $config['parameters']['expires'],
                 $config['parameters']['signature']
             );
@@ -49,6 +58,8 @@ class UrlSignerServiceProvider extends ServiceProvider
 
         $this->app->alias(UrlSignerContract::class, 'url-signer');
 
-        $this->app[Router::class]->aliasMiddleware('signedurl', ValidateSignature::class);
+        $router = $this->app[Router::class];
+        $method = method_exists($router, 'aliasMiddleware') ? 'aliasMiddleware' : 'middleware';
+        $router->$method('signed-url', ValidateSignature::class);
     }
 }

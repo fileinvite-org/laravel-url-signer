@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\UrlSigner\Laravel;
+namespace Lab66\UrlSigner\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class UrlSignerFacade extends Facade
+class UrlSigner extends Facade
 {
     /**
      * Get the registered name of the component.

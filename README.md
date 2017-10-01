@@ -1,13 +1,15 @@
-# Create secured URLs with a limited lifetime in Laravel
+# Create secured URLs with a (un)limited lifetime in Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-url-signer)
-[![Build Status](https://img.shields.io/travis/spatie/laravel-url-signer.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-url-signer)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-url-signer.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-url-signer)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/lab66/laravel-url-signer.svg?style=flat-square)](https://packagist.org/packages/lab66/laravel-url-signer)
+[![Build Status](https://img.shields.io/travis/lab66/laravel-url-signer.svg?style=flat-square)](https://travis-ci.org/lab66/laravel-url-signer)
+[![Quality Score](https://img.shields.io/scrutinizer/g/lab66/laravel-url-signer.svg?style=flat-square)](https://scrutinizer-ci.com/g/lab66/laravel-url-signer)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/24f14ee1-92d5-4dfc-a91f-f789fd61f14b/mini.png)](https://insight.sensiolabs.com/projects/24f14ee1-92d5-4dfc-a91f-f789fd61f14b)
 [![StyleCI](https://styleci.io/repos/40713346/shield?branch=master)](https://styleci.io/repos/40713346)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-url-signer.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-url-signer)
+[![Total Downloads](https://img.shields.io/packagist/dt/lab66/laravel-url-signer.svg?style=flat-square)](https://packagist.org/packages/lab66/laravel-url-signer)
 
 This package can create URLs with a limited lifetime. This is done by adding an expiration date and a signature to the URL.
+
+Requires Laravel 5.3+.
 
 This is how you can create signed URL that's valid for 30 days:
 
@@ -27,22 +29,14 @@ The URL can be validated with the `validate`-function.
 UrlSigner::validate('https://app.com/protected-route?expires=xxxxxx&signature=xxxxxx');
 ```
 
-The package also provides [a middleware to protect routes](https://github.com/spatie/laravel-url-signer#protecting-routes-with-middleware).
-
-## Postcardware
-
-You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
-
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
-
-All postcards are published [on our website](https://spatie.be/en/opensource/postcards).
+The package also provides [a middleware to protect routes](https://github.com/lab66/laravel-url-signer#protecting-routes-with-middleware).
 
 ## Installation
 
 As you would have guessed the package can be installed via Composer:
 
 ```
-composer require spatie/laravel-url-signer
+composer require lab66/laravel-url-signer
 ```
 
 To enable the package, register the serviceprovider, and optionally register the facade:
@@ -52,12 +46,12 @@ To enable the package, register the serviceprovider, and optionally register the
 
 'providers' => [
     ...
-    Spatie\UrlSigner\Laravel\UrlSignerServiceProvider::class,
+    Lab66\UrlSigner\UrlSignerServiceProvider::class,
 ];
 
 'aliases' => [
     ...
-    'UrlSigner' => Spatie\UrlSigner\Laravel\UrlSignerFacade::class,
+    'UrlSigner' => Lab66\UrlSigner\UrlSignerFacade::class,
 ];
 ```
 
@@ -66,7 +60,7 @@ To enable the package, register the serviceprovider, and optionally register the
 The configuration file can optionally be published via:
 
 ```
-php artisan vendor:publish --provider="Spatie\UrlSigner\Laravel\UrlSignerServiceProvider"
+php artisan vendor:publish --tag=url-signer
 ```
 
 This is the contents of the file:
@@ -75,21 +69,36 @@ This is the contents of the file:
 return [
 
     /*
-    * This string is used the to generate a signature. You should
-    * keep this value secret.
-    */
-    'signatureKey' => config('app.key'),
+     * The private key used to create the signature & sign the url.
+     */
+    'private_key' => '-----BEGIN RSA PRIVATE KEY-----
+MIIBOwIBAAJBAMLEGGPuPfopS53++75op5KaiDba4Lkcl7qjjTA8+W1Y1qzGGM2Z
+2zwJ8Uk5alBu47fY63vUClVnGK0ieXviiEkCAwEAAQJAYXJnmagbzkxXDygCoNQP
+86Ppvzhn83ZA3Br0i0wWqARJfHWnjiXgfJ+JOIOIngeGKGyd2Y9+6LhT+Ma79ByE
+2QIhAOKwTPSCrVQrGj1shT87OuhAuXp5V3YmDGRqx+fVXoELAiEA2/MceDDmIuUn
+LqOAfbPgbXOife/pFJjaGPrVcxIUmHsCIQCiyADqz+/RcgYst4HTjx/U6a2HMh1J
+HTdm4HrekoyDUwIgCKYRm4RIuFyMYuAZAFhfXc5rOEqDvsSX5t2OIR035BsCIQCd
+lf7pXxewNU9ky5sxHuKM4lWSy0BoDHrbyEw/Pigksg==
+-----END RSA PRIVATE KEY-----',
+
+    /**
+     * The public key used to verify the signed url signature.
+     */
+    'public_key' => '-----BEGIN PUBLIC KEY-----
+MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMLEGGPuPfopS53++75op5KaiDba4Lkc
+l7qjjTA8+W1Y1qzGGM2Z2zwJ8Uk5alBu47fY63vUClVnGK0ieXviiEkCAwEAAQ==
+-----END PUBLIC KEY-----',
 
     /*
-     * The default expiration time of a URL in days.
+     * The default expiration time of a URL in minutes.
      */
-    'default_expiration_time_in_days' => 1,
+    'default_expiration' => 60,
 
     /*
      * These strings are used a parameter names in a signed url.
      */
     'parameters' => [
-        'expires' => 'expires',
+        'expires'   => 'expires',
         'signature' => 'signature',
     ],
 
@@ -114,7 +123,7 @@ For fine grained control, you may also pass a `DateTime` instance as the second 
 will be valid up to that moment. This example uses Carbon for convenience:
 ```php
 //This URL will be valid up until 2 hours from the moment it was generated.
-UrlSigner::sign('https://myapp.com/protected-route', Carbon\Carbon::now()->addHours(2) );
+UrlSigner::sign('https://myapp.com/protected-route', Carbon::now()->addHours(2) );
 ```
 
 ### Validating URLs
@@ -127,12 +136,27 @@ UrlSigner::validate('https://app.com/protected-route?expires=xxxxxx&signature=xx
 The package also provides a middleware to protect routes:
 
 ```php
-Route::get('protected-route', ['middleware' => 'signedurl', function () {
+Route::get('protected-route', ['middleware' => 'signed-url', function () {
     return 'Hello secret world!';
 }]);
 ```
 Your app will abort with a 403 status code if the route is called without a valid signature.
 
+### Regenerating keys
+
+This package also exposes functions to regenerate the keys in your configuration, it might be good to do this after each deployment, this will invalidate all old signed urls.
+
+```
+php artisan url-signer:generate
+```
+
+You will need to have published the configuration file before running this command.
+
+There is also an optional parameter for complexity of the key, depending on complexity this may affect speed of signing/validation.
+
+```
+php artisan url-signer:generate 4096
+```
 
 ## Changelog
 
@@ -145,7 +169,8 @@ $ vendor/bin/phpunit
 ```
 
 ## Usage outside Laravel
-If you're working on a non-Laravel project, you can use the [framework agnostic version](https://github.com/spatie/url-signer).
+
+If you're working on a non-Laravel project, you can use the [framework agnostic version by Spatie](https://github.com/spatie/url-signer).
 
 ## Contributing
 
@@ -153,16 +178,17 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
+If you discover any security related issues, please email hello@lab66.com or by using the issue tracker.
 
 ## Credits
 
+- [Jak Wilkins](https://github.com/lab66)
 - [Sebastian De Deyne](https://github.com/sebastiandedeyne)
 - [All Contributors](../../contributors)
 
-## About Spatie
+## About
 
-Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
+This project originated from https://github.com/spatie/laravel-url-signer but was rewritten to be an all inclusive package, with support for OpenSSL public/private keys.
 
 ## License
 

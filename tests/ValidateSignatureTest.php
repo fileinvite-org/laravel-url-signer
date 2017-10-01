@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UrlSigner\Laravel\Test;
+namespace Lab66\UrlSigner\Laravel\Test;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -11,9 +11,9 @@ class ValidateSignatureTest extends TestCase
     {
         $instance = $this->app['url-signer'];
 
-        $this->assertInstanceOf(\Spatie\UrlSigner\UrlSigner::class, $instance);
-        $this->assertInstanceOf(\Spatie\UrlSigner\MD5UrlSigner::class, $instance);
-        $this->assertInstanceOf(\Spatie\UrlSigner\Laravel\URLSigner::class, $instance);
+        $this->assertInstanceOf(\Lab66\UrlSigner\UrlSigner::class, $instance);
+        $this->assertInstanceOf(\Lab66\UrlSigner\MD5UrlSigner::class, $instance);
+        $this->assertInstanceOf(\Lab66\UrlSigner\Laravel\URLSigner::class, $instance);
     }
 
     /** @test */
