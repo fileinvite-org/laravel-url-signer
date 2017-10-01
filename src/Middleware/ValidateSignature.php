@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\UrlSigner\Laravel\Middleware;
+namespace Lab66\UrlSigner\Middleware;
 
 use Closure;
 

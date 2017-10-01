@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\UrlSigner\Laravel\Test;
+namespace Lab66\UrlSigner\Laravel\Test;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\UrlSigner\Laravel\UrlSignerServiceProvider;
+use Lab66\UrlSigner\Laravel\UrlSignerServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
