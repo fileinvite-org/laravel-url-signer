@@ -112,18 +112,18 @@ URL's can be signed with the `sign`-method:
 UrlSigner::sign('https://myapp.com/protected-route');
 ```
 By default the lifetime of an URL is one day. This value can be change in the config-file.
-If you want a custom life time, you can specify the number of days the URL should be valid:
+If you want a custom life time, you can specify the number of minutes the URL should be valid:
 
 ```php
-//the generated URL will be valid for 5 days.
+//the generated URL will be valid for 5 minutes.
 UrlSigner::sign('https://myapp.com/protected-route', 5);
 ```
 
 For fine grained control, you may also pass a `DateTime` instance as the second parameter. The url
 will be valid up to that moment. This example uses Carbon for convenience:
 ```php
-//This URL will be valid up until 2 hours from the moment it was generated.
-UrlSigner::sign('https://myapp.com/protected-route', Carbon::now()->addHours(2) );
+//This URL will be valid up until 2 days from the moment it was generated.
+UrlSigner::sign('https://myapp.com/protected-route', Carbon::now()->addDays(2) );
 ```
 
 ### Validating URLs
