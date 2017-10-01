@@ -86,9 +86,9 @@ class UrlSigner implements UrlSignerContract
      *
      * @return string
      */
-    public function sign($url, $expiration = 0)
+    public function sign($url, $expiration = null)
     {
-        $expiration = $expiration ?? config('url-signer.expiration');
+        $expiration = $expiration ?: config('url-signer.expiration');
 
         $url = UrlImmutable::createFromUrl($url);
 
