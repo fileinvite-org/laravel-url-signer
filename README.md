@@ -11,7 +11,7 @@ This package can create URLs with a limited lifetime. This is done by adding an 
 
 Requires Laravel 5.3+.
 
-This is how you can create signed URL that's valid for 30 days:
+This is how you can create signed URL that's valid for 30 minutes:
 
 ```php
 UrlSigner::sign('https://myapp.com/protected-route', 30);
@@ -111,7 +111,7 @@ URL's can be signed with the `sign`-method:
 ```php
 UrlSigner::sign('https://myapp.com/protected-route');
 ```
-By default the lifetime of an URL is one day. This value can be change in the config-file.
+By default the lifetime of an URL is one hour. This value can be change in the config-file.
 If you want a custom life time, you can specify the number of minutes the URL should be valid:
 
 ```php
