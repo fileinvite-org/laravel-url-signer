@@ -88,7 +88,10 @@ class UrlSigner implements UrlSignerContract
      */
     public function sign($url, $expiration = null)
     {
-        $expiration = $expiration ?: config('url-signer.expiration');
+        if ( is_null($expiration) )
+        {
+            $expiration = config('url-signer.expiration');
+        }
 
         $url = UrlImmutable::createFromUrl($url);
 
@@ -271,6 +274,11 @@ class UrlSigner implements UrlSignerContract
      */
     protected function getExpirationTimestamp($expiration)
     {
+        if ( $expiration === 0 || $expiration === false )
+        {
+            return 0;
+        }
+
         if (is_int($expiration)) {
             $expiration = (new Carbon())->addMinutes($expiration);
         }
