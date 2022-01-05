@@ -7,9 +7,6 @@
     "homepage": "https://github.com/fileinvite-org/laravel-url-signer",
     "license": "MIT",
     "require": {
-        "php" : "^7.0",
-        "illuminate/support": "^v8.78.1",
-        "illuminate/http": "^v8.78.1",
         "league/url": "^3.3"
     },
     "require-dev": {
