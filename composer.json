@@ -8,8 +8,8 @@
     "license": "MIT",
     "require": {
         "php" : "^7.0",
-        "illuminate/support": "^5.3.0",
-        "illuminate/http": "^5.3.0",
+        "illuminate/support": "^v8.78.1",
+        "illuminate/http": "^v8.78.1",
         "league/url": "^3.3"
     },
     "require-dev": {
