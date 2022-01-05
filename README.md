@@ -29,14 +29,14 @@ The URL can be validated with the `validate`-function.
 UrlSigner::validate('https://app.com/protected-route?expires=xxxxxx&signature=xxxxxx');
 ```
 
-The package also provides [a middleware to protect routes](https://github.com/lab66/laravel-url-signer#protecting-routes-with-middleware).
+The package also provides [a middleware to protect routes](https://github.com/fileinvite-org/laravel-url-signer#protecting-routes-with-middleware).
 
 ## Installation
 
 As you would have guessed the package can be installed via Composer:
 
 ```
-composer require lab66/laravel-url-signer
+composer require fileinvite-org/laravel-url-signer
 ```
 
 To enable the package, register the serviceprovider, and optionally register the facade:
