@@ -1,3 +1,6 @@
+# Notice!
+This package is forked and repackaged version of the [lab66/laravel-url-signer](https://github.com/lab66/laravel-url-signer). This is to enable support for Laravel framework versions 6.x and onwards, and to be used as FileInvite internal package.
+
 # Create secured URLs with a (un)limited lifetime in Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/lab66/laravel-url-signer.svg?style=flat-square)](https://packagist.org/packages/lab66/laravel-url-signer)
