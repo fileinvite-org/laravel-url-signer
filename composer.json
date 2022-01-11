@@ -30,8 +30,13 @@
                 "Lab66\\UrlSigner\\UrlSignerServiceProvider"
             ],
             "aliases": {
-                "UrlSigner": "Lab66\\UrlSigner\\UrlSignerFacade"
+                "UrlSigner": "Lab66\\UrlSigner\\Facades\\UrlSigner"
             }
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false
         }
     }
 }
